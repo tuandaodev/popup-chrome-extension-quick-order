@@ -3,7 +3,7 @@ console.log("START PANEL");
 $('#Tinh').on('change', function () {
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-huyen/' + $("#Tinh").val(),
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         success: function (json) {
             console.log(json);
@@ -19,7 +19,7 @@ $('#Tinh').on('change', function () {
 $('#Huyen').on('change', function () {
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-xa/' + $("#Huyen").val(),
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         success: function (json) {
             console.log(json);
@@ -69,19 +69,56 @@ $("#don_hang").submit(function(e) {
 
     var form = $(this);
     var url = form.attr('action');
-
+    
     $.ajax({
            type: "POST",
            url: url,
            data: form.serialize(), // serializes the form's elements.
            success: function(data)
            {
+               data = JSON.parse(data);
                console.log(data);
-           }
+               if (data.result == true) {
+                   alert(data.detail);
+                   console.log(data.detail);
+                   $("#don_hang .reset").click();
+               } else {
+                   alert(data.detail);
+                   console.log(data.detail);
+               }
+           },
+           error: function (data) {
+                console.log(data);
+                alert("Có lỗi xảy ra, vui lòng thử lại.");
+            }
          });
 
     e.preventDefault(); // avoid to execute the actual submit of the form.
 });
+
+$("#don_hang .reset").on('click', function(e) {
+    
+    $("#don_hang").trigger("reset");
+    
+    localStorage.removeItem('client_name');
+    localStorage.removeItem('client_phone');
+    localStorage.removeItem('client_address');
+    
+    $("#count_product").val(0);
+    $("#chitietdonhang tr").remove();
+    
+    load_thongtinnhanvien();
+    
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+
+function load_thongtinnhanvien() {
+    // Load thong tin nhan vien
+    var employee_code = localStorage.getItem('employee_code');
+    var employee_token = localStorage.getItem('employee_token');
+    $("#MaNhanVien").val(employee_code);
+    $("#TokenKey").val(employee_token);
+}
 
 $(document).ready(function () {
 
@@ -95,15 +132,11 @@ $(document).ready(function () {
     $("#sdt").val(client_phone);
     $("#diachi").val(client_address);
     
-    // Load thong tin nhan vien
-    var employee_code = localStorage.getItem('employee_code');
-    var employee_token = localStorage.getItem('employee_token');
-    $("#MaNhanVien").val(employee_code);
-    $("#TokenKey").val(employee_token);
+    load_thongtinnhanvien();
     
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-tinh',
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         success: function (json) {
             console.log(json);
@@ -116,7 +149,7 @@ $(document).ready(function () {
     // Load list trang ban hang
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-trang-ban-hang',
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         success: function (json) {
             console.log(json);
@@ -129,7 +162,7 @@ $(document).ready(function () {
     // Load danh sach san pham
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-san-pham',
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         success: function (json) {
             console.log(json);
