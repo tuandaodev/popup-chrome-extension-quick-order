@@ -2,9 +2,27 @@ if (window == top) {
     window.addEventListener('keyup', doKeyPress, false); //add the keyboard handler
 }
 
-trigger_key = 71; // g key
+//KeyCode: 49 => Num1 ...
 function doKeyPress(e){
-	if (e.shiftKey && e.keyCode == trigger_key){ // if e.shiftKey is not provided then script will run at all instances of typing "G"
-		alert('Hi!');
+	if (e.altKey && e.keyCode == 50){ 
+		console.log("Alt + 2");
+                var current_text = window.getSelection().toString();
+                console.log(current_text);
+                chrome.extension.sendRequest({storage: 'client_name', value: current_text});
+	}
+        
+        if (e.altKey && e.keyCode == 51){
+		console.log("Alt + 3");
+                var current_text = window.getSelection().toString();
+                console.log(current_text);
+                chrome.extension.sendRequest({storage: 'client_phone', value: current_text});
+	}
+        
+        if (e.altKey && e.keyCode == 52){
+		console.log("Alt + 4");
+                var current_text = window.getSelection().toString();
+                console.log(current_text);
+                chrome.extension.sendRequest({storage: 'client_address', value: current_text});
 	}
 }
+

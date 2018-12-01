@@ -6,35 +6,11 @@
 	"permissions": [
 		"storage"
 	],
-        "commands": {
-          "toggle-feature-foo": {
-            "suggested_key": {
-              "default": "Alt+1",
-              "mac": "Alt+1"
-            },
-            "description": "Toggle feature foo"
-          },
-          "_execute_browser_action": {
-            "suggested_key": {
-              "windows": "Ctrl+Shift+Y",
-              "mac": "Command+Shift+Y",
-              "chromeos": "Ctrl+Shift+U",
-              "linux": "Ctrl+Shift+J"
-            }
-          },
-          "_execute_page_action": {
-            "suggested_key": {
-              "default": "Ctrl+Shift+E",
-              "windows": "Alt+Shift+P",
-              "mac": "Alt+Shift+P"
-            }
-          }
-        },
         "content_scripts": [
         {
           "matches": ["http://*/*", "https://*/*"], 
           "js": ["key_event.js"],  
-          "run_at": "document_end" 
+          "run_at": "document_start" 
         }
         ],
         "options_page": "options.html",
@@ -54,5 +30,17 @@
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 	"web_accessible_resources": [
 		"img/icon128.png"
-	]
+	],
+        "background":
+            {
+            "scripts": ["background.js"],
+            "persistent": true
+            },
+        "commands": {
+              "_execute_browser_action": {
+                "suggested_key": {
+                      "default": "Alt+1"
+                    }
+            }
+         }
 }
