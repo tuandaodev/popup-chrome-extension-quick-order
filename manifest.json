@@ -1,0 +1,35 @@
+{
+	"manifest_version": 2,
+	"name": "Quick Add Order",
+	"description": "Thêm nhanh đơn hàng",
+	"version": "1.0",
+	"permissions": [
+		"storage"
+	],
+        
+        "content_scripts": [
+        {
+          "matches": ["http://*/*", "https://*/*"], 
+          "js": ["key_event.js"],  
+          "run_at": "document_end" 
+        }
+        ],
+        "options_page": "options.html",
+	"icons": { 
+		"16": "img/icon16.png",
+		"48": "img/icon48.png",
+		"128": "img/icon128.png" 
+	},
+	"browser_action": {
+		"default_icon": {                    
+			"19": "img/icon48.png",          
+			"38": "img/icon48.png"          
+		},
+		"default_popup": "popup.html"
+	},
+        
+	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+	"web_accessible_resources": [
+		"img/icon128.png"
+	]
+}
