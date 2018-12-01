@@ -4,21 +4,21 @@ if (window == top) {
 
 //KeyCode: 49 => Num1 ...
 function doKeyPress(e){
-	if (e.altKey && e.keyCode == 50){ 
+	if (e.shiftKey && e.keyCode == 50){ 
 		console.log("Alt + 2");
                 var current_text = window.getSelection().toString();
                 console.log(current_text);
                 chrome.extension.sendRequest({storage: 'client_name', value: current_text});
 	}
         
-        if (e.altKey && e.keyCode == 51){
+        if (e.shiftKey && e.keyCode == 51){
 		console.log("Alt + 3");
                 var current_text = window.getSelection().toString();
                 console.log(current_text);
                 chrome.extension.sendRequest({storage: 'client_phone', value: current_text});
 	}
         
-        if (e.altKey && e.keyCode == 52){
+        if (e.shiftKey && e.keyCode == 52){
 		console.log("Alt + 4");
                 var current_text = window.getSelection().toString();
                 console.log(current_text);

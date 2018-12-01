@@ -12,6 +12,8 @@ $('#Tinh').on('change', function () {
             $.each(json, function (i, value) {
                 $('#Huyen').append($('<option>').text(value).attr('value', i));
             });
+            
+            $('#Huyen').select2();
         }
     });
 });
@@ -27,6 +29,8 @@ $('#Huyen').on('change', function () {
             $.each(json, function (i, value) {
                 $('#Xa').append($('<option>').text(value).attr('value', i));
             });
+            
+            $('#Xa').select2();
         }
     });
 });
@@ -143,6 +147,7 @@ $(document).ready(function () {
             $.each(json, function (i, value) {
                 $('#Tinh').append($('<option>').text(value).attr('value', i));
             });
+            $('#Tinh').select2();
         }
     });
 
@@ -156,6 +161,8 @@ $(document).ready(function () {
             $.each(json, function (i, value) {
                 $('#TrangBanHang').append($('<option>').text(value).attr('value', i));
             });
+            
+            $('#TrangBanHang').select2();
         }
     });
     
@@ -169,6 +176,8 @@ $(document).ready(function () {
             $.each(json, function (i, value) {
                 $('#id_product').append($('<option>').text(value).attr('value', i));
             });
+            
+            $('#id_product').select2();
         }
     });
 
