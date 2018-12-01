@@ -1,76 +1,72 @@
 <!doctype html>
 <html>
-	<head>
-	    <meta charset="utf-8">
-		<meta name="description" content="A basic template for a Chrome Extension using Twitter Bootstrap 3">
-		<meta name="author" content="Elliot Hesp">
-		
-		<title>Quick Order Options</title>
-		
-		<!-- Scripts -->
-		<script src="js/jquery-2.0.3.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		
-		<!-- Cascading Style Sheets -->
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-                <link href="css/option.css" rel="stylesheet" media="screen">
-	</head>
-	
-	<body>
-	
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Quick Order</a>
-			</div>
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active">
-						<a href="#">Cài đặt</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<section>
-                    
-                    <div class="container">
-                    
-                    <div class="col-lg-12">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="A basic template for a Chrome Extension using Twitter Bootstrap 3">
+        <meta name="author" content="Elliot Hesp">
+
+        <title>Quick Order Options</title>
+
+        <!-- Scripts -->
+        <script src="js/jquery-2.0.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/option.js"></script>
+
+        <!-- Cascading Style Sheets -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/option.css" rel="stylesheet" media="screen">
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Quick Order</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#">Cài đặt</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section>
+
+            <div class="container">
+
+                <div class="col-lg-12">
                     <h3 class="page-header">Cài đặt</h3>
                 </div>
-                        
-                        <form role="form">
-                        
+
+                <form role="form">
                     <div class="row">
-                                <div class="col-lg-6">
-                                    
-                                        <div class="form-group">
-                                            <label>Họ tên Nhân viên</label>
-                                            <input class="form-control" placeholder="Nhập họ và tên nhân viên" id="employee_name" name="employee_name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Nhập mã nhân viên</label>
-                                            <input class="form-control" placeholder="Nhập mã nhân viên tại đây" id="employee_code" name="employee_code">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Login Token</label>
-                                            <input class="form-control" placeholder="Nhập token để kiểm tra lúc tạo đơn hàng" id="employee_token" name="employee_token">
-                                        </div>
-                                    
-                                        <button type="submit" class="btn btn-success">Lưu</button>
-                                        <button type="reset" class="btn btn-danger">Nhập lại</button>
-                                    
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
+                        <div class="col-lg-6">
+                            <div id="notice" class="alert alert-success" style="display:none">
+                                Đã lưu các thông tin thành công.
                             </div>
-                        
-                        </form>
-                    
-               </div>     
-			
-		</section>
-		
-	</body>
+                            <div class="form-group">
+                                <label>Họ tên Nhân viên</label>
+                                <input class="form-control" placeholder="Nhập họ và tên nhân viên" id="employee_name" name="employee_name">
+                            </div>
+                            <div class="form-group">
+                                <label>Nhập mã nhân viên</label>
+                                <input class="form-control" placeholder="Nhập mã nhân viên tại đây" id="employee_code" name="employee_code">
+                            </div>
+                            <div class="form-group">
+                                <label>Login Token</label>
+                                <input class="form-control" placeholder="Nhập token để kiểm tra lúc tạo đơn hàng" id="employee_token" name="employee_token">
+                            </div>
+
+                            <button type="button" id="option_save" class="btn btn-success">Lưu</button>
+                            <button type="button" id="reload_save" class="btn btn-danger">Nhập lại</button>
+
+                        </div>
+                        <div class="col-lg-6">
+                        </div>
+                    </div>
+                </form>
+            </div>     
+        </section>
+    </body>
 </html>

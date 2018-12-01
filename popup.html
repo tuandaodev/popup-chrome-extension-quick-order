@@ -7,11 +7,6 @@
 
         <title>Tạo đơn hàng nhanh</title>
 
-        <!-- Scripts -->
-        <script src="js/jquery-2.0.3.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/popup.js"></script>
-
         <!-- Cascading Style Sheets -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/custom.css" rel="stylesheet" media="screen">
@@ -25,36 +20,28 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <form role="form">
-            <div class="col-lg-12">
-                
-                <div class="row">
+            <form id="don_hang" method="POST" action="http://thoitrangs2.com/api/dang-don-hang">
+                <div class="col-lg-12">
+
+                    <div class="row">
                         <div class="col-lg-7">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Tên khách hàng</label>
-                                    <input class="form-control" id="client_name" name="client_name">
+                                    <input class="form-control" id="tenkhachhang" name="tenkhachhang">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Tỉnh/Thành phố</label>
-                                    <select class="form-control" id="client_tinh" name="client_city">
+                                    <select class="form-control" id="Tinh" name="Tinh">
                                         <option>-Chọn tỉnh/thành-</option>
-                                        <option>HCM</option>
-                                        <option>Đà Nẵng</option>
-                                        <option>Hà Nội</option>
-                                        <option>Vũng Tàu</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Xã/Phường</label>
-                                    <select class="form-control" id="client_ward" name="client_ward">
+                                    <select class="form-control" id="Xa" name="Xa">
                                         <option>-Chọn xã/phường-</option>
-                                        <option>Phường 1</option>
-                                        <option>Phường 2</option>
-                                        <option>Phường 3</option>
-                                        <option>Phường 4</option>
                                     </select>
                                 </div>
                             </div>
@@ -62,75 +49,125 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>SĐT</label>
-                                    <input class="form-control" id="client_phone" name="client_phone">
+                                    <input class="form-control" id="sdt" name="sdt">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Quận/Huyện</label>
-                                    <select class="form-control" id="client_district" name="client_district">
+                                    <select class="form-control" id="Huyen" name="Huyen">
                                         <option>-Chọn quận/huyện-</option>
-                                        <option>Quận 1</option>
-                                        <option>Quận 2</option>
-                                        <option>Quận 3</option>
-                                        <option>Quận 4</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Địa chỉ</label>
-                                    <input class="form-control" id="client_address" name="client_address">
+                                    <input class="form-control" id="diachi" name="diachi">
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Chọn trang bán hàng</label>
-                                        <select class="form-control" id="client_vendor" name="client_vendor">
-                                            <option>-Chọn trang bán hàng-</option>
-                                            <option>ABC</option>
-                                            <option>XYZ</option>
-                                            <option>GHJ</option>
-                                            <option>TYBV</option>
-                                        </select>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Chọn trang bán hàng</label>
+                                    <select class="form-control" id="TrangBanHang" name="TrangBanHang">
+                                        <option>-Chọn trang bán hàng-</option>
+                                    </select>
+                                </div>
                             </div>
-                            
+
                         </div>
 
                         <!-- /.col-lg-6 (nested) -->
                         <div class="col-lg-5">
-                                <label>Chi tiết đơn hàng</label>
-                                <div class="form-group">
-                                    <div class="col-lg-6">
-                                        <label>Sản phẩm</label>
-                                        <select class="form-control" id="id_product" name="id_product">
-                                            <option>Chọn sản phẩm</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label>Số lượng</label>
-                                        <input class="form-control" id="product_quantity" name="product_quantity">
-                                    </div>
+                            <fieldset>
+                                <div class="col-lg-6">
+                                    <label>Sản phẩm</label>
+                                    <select class="form-control" id="id_product" name="id_product">
+                                        <option value="">Chọn SP</option>
+                                    </select>
                                 </div>
+                                <div class="col-lg-4">
+                                    <label>Số lượng</label>
+                                    <input class="form-control" type="number" id="product_quantity" name="product_quantity" value="1">
+                                </div>
+                                <div class="col-lg-2">
+                                    <button id="add_product" type="button" class="btn btn-success" style="margin-top: 24px;">+</button>
+                                </div>
+                            </fieldset>
+                            <div class="form-group">
+                                <h4>Chi tiết đơn hàng</h4>
+                                    <input type="hidden" id="count_product" value="0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Sản phẩm</th>
+                                                    <th>Số lượng</th>
+                                                    <th>X</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="chitietdonhang">
+<!--                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Larry</td>
+                                                    <td>the Bird</td>
+                                                    <td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td>
+                                                </tr>-->
+                                            </tbody>
+                                        </table>
+                                    
+                                </div>
+                            </div>
                         </div>
-                        
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <label>Mã nhân viên</label>
+                                    <input class="form-control" id="MaNhanVien" name="MaNhanVien" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label>Token</label>
+                                    <input class="form-control" id="TokenKey" name="TokenKey" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
                         <!-- /.col-lg-6 (nested) -->
-                   
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 button-container">
+                            <button type="submit" class="btn btn-success">Tạo đơn hàng</button>
+                            <button type="reset" class="btn btn-danger">Nhập lại</button>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                    <!-- /.panel-body -->
+                    <!-- /.panel -->
                 </div>
-                    
-                <div class="row">
-                   <div class="col-lg-12 button-container">
-                       <button type="submit" class="btn btn-success">Tạo đơn hàng</button>
-                       <button type="reset" class="btn btn-danger">Nhập lại</button>
-                   </div>
-               </div>
-                <!-- /.row (nested) -->
-                <!-- /.panel-body -->
-                <!-- /.panel -->
-            </div>
-            
+
             </form>
             <!-- /.col-lg-12 -->
         </div>
     </body>
+    
+    <!-- Scripts -->
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popup.js"></script>
 </html>
