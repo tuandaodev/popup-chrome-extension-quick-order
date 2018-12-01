@@ -1,12 +1,35 @@
 {
 	"manifest_version": 2,
-	"name": "Quick Add Order",
+	"name": "Quick Order",
 	"description": "Thêm nhanh đơn hàng",
 	"version": "1.0",
 	"permissions": [
 		"storage"
 	],
-        
+        "commands": {
+          "toggle-feature-foo": {
+            "suggested_key": {
+              "default": "Alt+1",
+              "mac": "Alt+1"
+            },
+            "description": "Toggle feature foo"
+          },
+          "_execute_browser_action": {
+            "suggested_key": {
+              "windows": "Ctrl+Shift+Y",
+              "mac": "Command+Shift+Y",
+              "chromeos": "Ctrl+Shift+U",
+              "linux": "Ctrl+Shift+J"
+            }
+          },
+          "_execute_page_action": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+E",
+              "windows": "Alt+Shift+P",
+              "mac": "Alt+Shift+P"
+            }
+          }
+        },
         "content_scripts": [
         {
           "matches": ["http://*/*", "https://*/*"], 
