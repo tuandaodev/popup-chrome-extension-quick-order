@@ -85,7 +85,11 @@ $("#don_hang").submit(function(e) {
                if (data.result == true) {
                    alert(data.detail);
                    console.log(data.detail);
-                   $("#don_hang .reset").click();
+                   
+                   if (window.confirm("Đơn hàng đã tạo thành công. Bạn có muốn reset thông tin đơn hàng không?")) { 
+                    $("#don_hang .reset").click();
+                  }
+                   
                } else {
                    alert(data.detail);
                    console.log(data.detail);
@@ -102,16 +106,18 @@ $("#don_hang").submit(function(e) {
 
 $("#don_hang .reset").on('click', function(e) {
     
-    $("#don_hang").trigger("reset");
+//    $("#don_hang").trigger("reset");
     
     localStorage.removeItem('client_name');
     localStorage.removeItem('client_phone');
     localStorage.removeItem('client_address');
     
-    $("#count_product").val(0);
-    $("#chitietdonhang tr").remove();
+    location.reload();
     
-    load_thongtinnhanvien();
+//    $("#count_product").val(0);
+//    $("#chitietdonhang tr").remove();
+    
+//    load_thongtinnhanvien();
     
     e.preventDefault(); // avoid to execute the actual submit of the form.
 });
@@ -181,4 +187,24 @@ $(document).ready(function () {
         }
     });
 
+});
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+  if (request.storage) {
+    if (typeof request.value != 'undefined') {
+      localStorage[request.storage] = request.value;
+    }
+    sendResponse({storage: localStorage[request.storage]});
+  } else {
+    sendResponse({});
+  }
+  
+    // Load thong tin da copy
+  var client_name = localStorage.getItem('client_name');
+  var client_phone = localStorage.getItem('client_phone');
+  var client_address = localStorage.getItem('client_address');
+  $("#tenkhachhang").val(client_name);
+  $("#sdt").val(client_phone);
+  $("#diachi").val(client_address);
+  
 });

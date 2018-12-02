@@ -5,7 +5,7 @@
         <meta name="description" content="Tạo đơn hàng nhanh">
         <meta name="author" content="Tuan Dao">
 
-        <title>Tạo đơn hàng nhanh</title>
+        <title>QuickOrder</title>
 
         <!-- Cascading Style Sheets -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -16,17 +16,17 @@
     <body>
         <div id="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-xs-12">
                     <h3 class="page-header">THÔNG TIN ĐƠN HÀNG</h3>
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.col-xs-12 -->
             </div>
             <form id="don_hang" method="POST" action="http://thoitrangs2.com/api/dang-don-hang">
-                <div class="col-lg-12">
+                <div class="col-xs-12">
 
                     <div class="row">
-                        <div class="col-lg-7">
-                            <div class="col-lg-6">
+                        <div class="col-xs-7">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <label>Tên khách hàng</label>
                                     <input class="form-control" id="tenkhachhang" name="tenkhachhang">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <label>SĐT</label>
                                     <input class="form-control" id="sdt" name="sdt">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-xs-12">
                                 <div class="form-group">
                                     <label>Chọn trang bán hàng</label>
                                     <select class="form-control" id="TrangBanHang" name="TrangBanHang">
@@ -77,20 +77,20 @@
 
                         </div>
 
-                        <!-- /.col-lg-6 (nested) -->
-                        <div class="col-lg-5">
+                        <!-- /.col-xs-6 (nested) -->
+                        <div class="col-xs-5">
                             <fieldset>
-                                <div class="col-lg-6">
+                                <div class="col-xs-6">
                                     <label>Sản phẩm</label>
                                     <select class="form-control" id="id_product" name="id_product">
                                         <option value="">Chọn SP</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-xs-4">
                                     <label>Số lượng</label>
                                     <input class="form-control" type="number" id="product_quantity" name="product_quantity" value="1">
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-xs-2">
                                     <button id="add_product" type="button" class="btn btn-success" style="margin-top: 24px;">+</button>
                                 </div>
                             </fieldset>
@@ -133,26 +133,26 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
-                            <div class="col-lg-7">
+                        <div class="col-xs-12">
+                            <div class="col-xs-7">
                                 <div class="form-group">
                                     <label>Mã nhân viên</label>
                                     <input class="form-control" id="MaNhanVien" name="MaNhanVien" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-xs-5">
                                 <div class="form-group">
                                     <label>Token</label>
                                     <input class="form-control" id="TokenKey" name="TokenKey" readonly="readonly">
                                 </div>
                             </div>
                         </div>
-                        <!-- /.col-lg-6 (nested) -->
+                        <!-- /.col-xs-6 (nested) -->
 
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12 button-container">
+                        <div class="col-xs-12 button-container">
                             <button type="submit" class="btn btn-success">Tạo đơn hàng</button>
                             <button type="button" class="btn btn-danger reset">Nhập lại</button>
                         </div>
@@ -163,7 +163,7 @@
                 </div>
 
             </form>
-            <!-- /.col-lg-12 -->
+            <!-- /.col-xs-12 -->
         </div>
     </body>
     
