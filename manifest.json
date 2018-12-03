@@ -45,26 +45,23 @@
               "AHoTen": {
                 "suggested_key": {
                   "default": "Alt+1",
-                  "mac": "Alt+1"
+                  "mac": "Command+1"
                 },
-                "description": "Hotkey Họ Tên",
-                "global": true
+                "description": "Hotkey Họ Tên"
               },
               "BDienThoai": {
                 "suggested_key": {
                   "default": "Alt+2",
-                  "mac": "Alt+2"
+                  "mac": "Command+2"
                 },
-                "description": "Hotkey Điện Thoại",
-                "global": true
+                "description": "Hotkey Điện Thoại"
               },
               "CDiaChi": {
                 "suggested_key": {
                   "default": "Alt+3",
-                  "mac": "Alt+3"
+                  "mac": "Command+3"
                 },
-                "description": "Hotkey Địa Chỉ",
-                "global": true
+                "description": "Hotkey Địa Chỉ"
               }
          }
 }
