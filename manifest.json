@@ -39,8 +39,32 @@
         "commands": {
               "_execute_browser_action": {
                 "suggested_key": {
-                      "default": "Alt+1"
+                      "default": "Ctrl+Q"
                     }
-            }
+            },
+              "AHoTen": {
+                "suggested_key": {
+                  "default": "Alt+1",
+                  "mac": "Alt+1"
+                },
+                "description": "Hotkey Họ Tên",
+                "global": true
+              },
+              "BDienThoai": {
+                "suggested_key": {
+                  "default": "Alt+2",
+                  "mac": "Alt+2"
+                },
+                "description": "Hotkey Điện Thoại",
+                "global": true
+              },
+              "CDiaChi": {
+                "suggested_key": {
+                  "default": "Alt+3",
+                  "mac": "Alt+3"
+                },
+                "description": "Hotkey Địa Chỉ",
+                "global": true
+              }
          }
 }
