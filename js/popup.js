@@ -85,12 +85,8 @@ $("#don_hang").submit(function(e) {
                if (data.result == true) {
                    alert(data.detail);
                    console.log(data.detail);
-                   
-                   if (window.confirm("Đơn hàng đã tạo thành công. Bạn có muốn reset thông tin đơn hàng không?")) { 
-                    $("#don_hang .reset").click();
-                  }
-                   
-               } else {
+                   $("#don_hang .reset").click();
+                } else {
                    alert(data.detail);
                    console.log(data.detail);
                }
@@ -101,7 +97,7 @@ $("#don_hang").submit(function(e) {
             }
          });
 
-    e.preventDefault(); // avoid to execute the actual submit of the form.
+    e.preventDefault();
 });
 
 $("#don_hang .reset").on('click', function(e) {
@@ -203,8 +199,11 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   var client_name = localStorage.getItem('client_name');
   var client_phone = localStorage.getItem('client_phone');
   var client_address = localStorage.getItem('client_address');
+  var client_url = localStorage.getItem('client_url');
+  
   $("#tenkhachhang").val(client_name);
   $("#sdt").val(client_phone);
   $("#diachi").val(client_address);
+  $("#url").val(client_url);
   
 });
