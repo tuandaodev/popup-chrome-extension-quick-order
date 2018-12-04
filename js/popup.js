@@ -1,5 +1,13 @@
 console.log("START PANEL");
 
+$('select').on('change', function () {
+    if ($(this).val() !== "") {
+        $(this).parent().find('.select2-selection--single').css({'background-color' : '#fdff5d'});
+    } else {
+        $(this).parent().find('.select2-selection--single').css({'background-color' : ''});
+    }
+});
+
 $('#Tinh').on('change', function () {
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-huyen/' + $("#Tinh").val(),
@@ -46,12 +54,22 @@ $('#chitietdonhang').on('click', '.delete-button', function (event) {
 $('#add_product').on('click', function (event) {
     
     if (!$("#id_product").val()) {
-        alert("Chưa chọn sản phẩm.");
+//        alert("Chưa chọn sản phẩm.");
+        bootbox.alert({
+            message: "Chưa chọn sản phẩm.",
+            size: 'small',
+            backdrop: true
+        });
         return;
     }
     
     if (!$("#product_quantity").val() || parseInt($("#product_quantity").val()) < 1) {
-        alert("Chưa chọn số lượng.");
+//        alert("Chưa chọn số lượng.");
+        bootbox.alert({
+            message: "Chưa chọn số lượng.",
+            size: 'small',
+            backdrop: true
+        });
         return;
     }
     
@@ -83,17 +101,32 @@ $("#don_hang").submit(function(e) {
                data = JSON.parse(data);
                console.log(data);
                if (data.result == true) {
-                   alert(data.detail);
+//                   alert(data.detail);
+                   bootbox.alert({
+                        message: data.detail,
+                        size: 'small',
+                        backdrop: true
+                    });
                    console.log(data.detail);
                    $("#don_hang .reset").click();
                 } else {
-                   alert(data.detail);
+//                   alert(data.detail);
+                    bootbox.alert({
+                        message: data.detail,
+                        size: 'small',
+                        backdrop: true
+                    });
                    console.log(data.detail);
                }
            },
            error: function (data) {
                 console.log(data);
-                alert("Có lỗi xảy ra, vui lòng thử lại.");
+//                alert("Có lỗi xảy ra, vui lòng thử lại.");
+                bootbox.alert({
+                        message: "Có lỗi xảy ra, vui lòng thử lại.",
+                        size: 'small',
+                        backdrop: true
+                    });
             }
          });
 
@@ -107,6 +140,7 @@ $("#don_hang .reset").on('click', function(e) {
     localStorage.removeItem('client_name');
     localStorage.removeItem('client_phone');
     localStorage.removeItem('client_address');
+    localStorage.removeItem('client_url');
     
     location.reload();
     
@@ -252,9 +286,27 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   var client_address = localStorage.getItem('client_address');
   var client_url = localStorage.getItem('client_url');
   
-  $("#tenkhachhang").val(client_name);
-  $("#sdt").val(client_phone);
-  $("#diachi").val(client_address);
+  if (!client_name) {
+    
+  } else {
+      $("#tenkhachhang").val(client_name);
+      $("#tenkhachhang").css({'background-color' : '#fdff5d'});
+  }
+  
+  if (!client_phone) {
+      
+  } else {
+    $("#sdt").val(client_phone);
+    $("#sdt").css({'background-color' : '#fdff5d'});
+  }
+  
+  if (!client_address) {
+      
+  } else {
+      $("#diachi").val(client_address);
+      $("#diachi").css({'background-color' : '#fdff5d'});
+  }
+  
   $("#url").val(client_url);
   
 });
