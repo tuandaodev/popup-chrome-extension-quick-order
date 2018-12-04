@@ -13,9 +13,14 @@ function reload_save() {
 $( document ).ready(function() {
     $("#option_save").click(function(e) {
         console.log("SUBMITED.");
-        chrome.extension.sendRequest({storage: 'employee_name', value: $("#employee_name").val()});
-        chrome.extension.sendRequest({storage: 'employee_code', value: $("#employee_code").val()});
-        chrome.extension.sendRequest({storage: 'employee_token', value: $("#employee_token").val()});
+        
+        //chrome.extension.sendRequest({storage: 'employee_name', value: $("#employee_name").val()});
+        //chrome.extension.sendRequest({storage: 'employee_code', value: $("#employee_code").val()});
+        //chrome.extension.sendRequest({storage: 'employee_token', value: $("#employee_token").val()});
+        
+        localStorage.setItem('employee_name', $("#employee_name").val());
+        localStorage.setItem('employee_code', $("#employee_code").val());
+        localStorage.setItem('employee_token', $("#employee_token").val());
         
         $("#notice").show();
     });

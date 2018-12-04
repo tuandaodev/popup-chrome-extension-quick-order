@@ -126,6 +126,22 @@ function load_thongtinnhanvien() {
     $("#TokenKey").val(employee_token);
 }
 
+function convertVietnamese(str) { 
+    str= str.toLowerCase();
+    str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+    str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str= str.replace(/đ/g,"d"); 
+    str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g,"-");
+    str= str.replace(/-+-/g,"-");
+    str= str.replace(/^\-+|\-+$/g,""); 
+
+    return str; 
+}
+
 $(document).ready(function () {
 
     console.log("Load Panel completed");
@@ -182,6 +198,41 @@ $(document).ready(function () {
             $('#id_product').select2();
         }
     });
+    
+    $.fn.select2.defaults.set('matcher', function(params, data) {
+        // If there are no search terms, return all of the data
+        if ($.trim(params.term) === '') {
+          return data;
+        }
+
+        // Do not display the item if there is no 'text' property
+        if (typeof data.text === 'undefined') {
+          return null;
+        }
+        
+        
+        var str = convertVietnamese(data.text);
+        
+        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+        var acronym = matches.join(''); // JSON
+        
+//        console.log(params.term.toUpperCase());
+//        console.log(acronym.toUpperCase());
+//        console.log(params.term.toUpperCase().indexOf(acronym.toUpperCase()));
+        
+        if (params.term.toUpperCase().indexOf(acronym.toUpperCase()) !== -1 || acronym.toUpperCase().indexOf(params.term.toUpperCase()) !== -1) {
+            return data;
+        }
+        
+        var words = params.term.toUpperCase().split(" ");
+        for (var i = 0; i < words.length; i++) {
+          if (data.text.toUpperCase().indexOf(words[i]) < 0) {
+            return null;
+          }
+        }
+
+        return data;
+      });
 
 });
 
@@ -206,4 +257,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   $("#diachi").val(client_address);
   $("#url").val(client_url);
   
+});
+
+$(document).on('focus', '.select2', function (e) {
+  if (e.originalEvent) {
+    $(this).siblings('select').select2('open');    
+  } 
 });
