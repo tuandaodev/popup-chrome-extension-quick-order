@@ -1,5 +1,40 @@
 console.log("START PANEL");
 
+function matchCustom(params, data) {
+    // If there are no search terms, return all of the data
+    if ($.trim(params.term) === '') {
+      return data;
+    }
+
+    // Do not display the item if there is no 'text' property
+    if (typeof data.text === 'undefined') {
+      return null;
+    }
+
+
+    var str = convertVietnamese(data.text);
+
+    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+    var acronym = matches.join(''); // JSON
+
+//        console.log(params.term.toUpperCase());
+//        console.log(acronym.toUpperCase());
+//        console.log(params.term.toUpperCase().indexOf(acronym.toUpperCase()));
+
+    if (params.term.toUpperCase().indexOf(acronym.toUpperCase()) !== -1 || acronym.toUpperCase().indexOf(params.term.toUpperCase()) !== -1) {
+        return data;
+    }
+
+    var words = params.term.toUpperCase().split(" ");
+    for (var i = 0; i < words.length; i++) {
+      if (data.text.toUpperCase().indexOf(words[i]) < 0) {
+        return null;
+      }
+    }
+
+    return data;
+};
+
 $('select').on('change', function () {
     if ($(this).val() !== "") {
         $(this).parent().find('.select2-selection--single').css({'background-color' : '#fdff5d'});
@@ -21,7 +56,9 @@ $('#Tinh').on('change', function () {
                 $('#Huyen').append($('<option>').text(value).attr('value', i));
             });
             
-            $('#Huyen').select2();
+            $('#Huyen').select2({
+                matcher: matchCustom
+            });
         }
     });
 });
@@ -38,7 +75,9 @@ $('#Huyen').on('change', function () {
                 $('#Xa').append($('<option>').text(value).attr('value', i));
             });
             
-            $('#Xa').select2();
+            $('#Xa').select2({
+                matcher: matchCustom
+            });
         }
     });
 });
@@ -199,7 +238,9 @@ $(document).ready(function () {
             $.each(json, function (i, value) {
                 $('#Tinh').append($('<option>').text(value).attr('value', i));
             });
-            $('#Tinh').select2();
+            $('#Tinh').select2({
+                matcher: matchCustom
+            });
         }
     });
 
@@ -233,40 +274,40 @@ $(document).ready(function () {
         }
     });
     
-    $.fn.select2.defaults.set('matcher', function(params, data) {
-        // If there are no search terms, return all of the data
-        if ($.trim(params.term) === '') {
-          return data;
-        }
-
-        // Do not display the item if there is no 'text' property
-        if (typeof data.text === 'undefined') {
-          return null;
-        }
-        
-        
-        var str = convertVietnamese(data.text);
-        
-        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-        var acronym = matches.join(''); // JSON
-        
-//        console.log(params.term.toUpperCase());
-//        console.log(acronym.toUpperCase());
-//        console.log(params.term.toUpperCase().indexOf(acronym.toUpperCase()));
-        
-        if (params.term.toUpperCase().indexOf(acronym.toUpperCase()) !== -1 || acronym.toUpperCase().indexOf(params.term.toUpperCase()) !== -1) {
-            return data;
-        }
-        
-        var words = params.term.toUpperCase().split(" ");
-        for (var i = 0; i < words.length; i++) {
-          if (data.text.toUpperCase().indexOf(words[i]) < 0) {
-            return null;
-          }
-        }
-
-        return data;
-      });
+//    $.fn.select2.defaults.set('matcher', function(params, data) {
+//        // If there are no search terms, return all of the data
+//        if ($.trim(params.term) === '') {
+//          return data;
+//        }
+//
+//        // Do not display the item if there is no 'text' property
+//        if (typeof data.text === 'undefined') {
+//          return null;
+//        }
+//        
+//        
+//        var str = convertVietnamese(data.text);
+//        
+//        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+//        var acronym = matches.join(''); // JSON
+//        
+////        console.log(params.term.toUpperCase());
+////        console.log(acronym.toUpperCase());
+////        console.log(params.term.toUpperCase().indexOf(acronym.toUpperCase()));
+//        
+//        if (params.term.toUpperCase().indexOf(acronym.toUpperCase()) !== -1 || acronym.toUpperCase().indexOf(params.term.toUpperCase()) !== -1) {
+//            return data;
+//        }
+//        
+//        var words = params.term.toUpperCase().split(" ");
+//        for (var i = 0; i < words.length; i++) {
+//          if (data.text.toUpperCase().indexOf(words[i]) < 0) {
+//            return null;
+//          }
+//        }
+//
+//        return data;
+//      });
 
 });
 
