@@ -378,18 +378,22 @@ function convertVietnamese(str) {
     return str; 
 }
 
+var employee_code = localStorage.getItem('employee_code');
+var employee_token = localStorage.getItem('employee_token');
+    
 $(document).ready(function () {
 
     console.log("Load Panel completed");
     
     // Load thong tin da copy
-    var client_name = localStorage.getItem('client_name');
-    var client_phone = localStorage.getItem('client_phone');
-    var client_address = localStorage.getItem('client_address');
-    $("#tenkhachhang").val(client_name);
-    $("#sdt").val(client_phone);
-    $("#diachi").val(client_address);
-    
+//    var client_name = localStorage.getItem('client_name');
+//    var client_phone = localStorage.getItem('client_phone');
+//    var client_address = localStorage.getItem('client_address');
+//    $("#tenkhachhang").val(client_name);
+//    $("#sdt").val(client_phone);
+//    $("#diachi").val(client_address);
+
+    load_exists_data();
     load_thongtinnhanvien();
     
     load_tinh();
@@ -424,8 +428,25 @@ $(document).ready(function () {
         }
     });
     
-    var employee_code = localStorage.getItem('employee_code');
-    var employee_token = localStorage.getItem('employee_token');
+    $(document).on('focus', '.select2-selection--single', function(e) {
+        select2_open = $(this).parent().parent().siblings('select');
+        select2_open.select2('open');
+    });
+    
+    $('input[type="text"]').on('keyup', function(e) {
+        if ($(this).val()) {
+            $(this).css({'background-color' : '#fdff5d'});
+        } else {
+            $(this).css({'background-color' : ''});
+        }
+        
+        console.log($(this).attr('id'));
+        
+//        if ($(this).attr('id') == "sdt") {
+//            remove_sdt_alert();
+//        }
+    });
+    
     $.ajax({
             url: 'http://thoitrangs2.com/api/tong-don-hang',
             type: 'POST',
@@ -441,23 +462,93 @@ $(document).ready(function () {
                 } else {
                     $("#tong_don_hang").html("--");
                 }
+            },
+            error: function (json) {
+                $("#tong_don_hang").html("--");
             }
     });
-        
-    $(document).on('focus', '.select2-selection--single', function(e) {
-        select2_open = $(this).parent().parent().siblings('select');
-        select2_open.select2('open');
-    });
     
-    $('input[type="text"]').on('keyup', function(e) {
-        if ($(this).val()) {
-            $(this).css({'background-color' : '#fdff5d'});
-        } else {
-            $(this).css({'background-color' : ''});
+    check_sdt();
+    $('#sdt').on('change', function () {
+        check_sdt();
+    });
+});
+
+function check_sdt() {
+    if (!$('#sdt').val()) {
+        return;
+    }
+
+    $.ajax({
+        url: 'http://thoitrangs2.com/api/check-sdt',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          MaNhanVien:employee_code,
+          TokenKey:employee_token,
+          sdt:$('#sdt').val()
+        },
+        success: function (json) {
+            console.log(json);
+            if (json.result == true) {
+                if (json.detail != "0") {
+                    $("#count-sdt-alert").html(json.detail);
+                    sdt_alert();
+                } else {
+                    remove_sdt_alert();
+                }
+            } else {
+                remove_sdt_alert();
+            }
+        },
+        error: function (json) {
+            remove_sdt_alert();
         }
     });
-    
-});
+}
+
+function sdt_alert() {
+    $("#sdt").css('border-color', '#f00');
+    $("#sdt-alert").show();
+}
+
+function remove_sdt_alert() {
+    $("#sdt").css('border-color', '');
+    $("#sdt-alert").hide();
+}
+
+function load_exists_data() {
+    // Load thong tin da copy
+    var client_name = localStorage.getItem('client_name');
+    var client_phone = localStorage.getItem('client_phone');
+    var client_address = localStorage.getItem('client_address');
+    var client_url = localStorage.getItem('client_url');
+
+    if (!client_name) {
+
+    } else {
+        $("#tenkhachhang").val(client_name);
+        $("#tenkhachhang").css({'background-color' : '#fdff5d'});
+    }
+
+    if (!client_phone) {
+
+    } else {
+      $("#sdt").val(client_phone);
+      $("#sdt").css({'background-color' : '#fdff5d'});
+
+      check_sdt();
+    }
+
+    if (!client_address) {
+
+    } else {
+        $("#diachi").val(client_address);
+        $("#diachi").css({'background-color' : '#fdff5d'});
+    }
+
+    $("#url").val(client_url);
+}
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   if (request.storage) {
@@ -469,33 +560,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     sendResponse({});
   }
   
-    // Load thong tin da copy
-  var client_name = localStorage.getItem('client_name');
-  var client_phone = localStorage.getItem('client_phone');
-  var client_address = localStorage.getItem('client_address');
-  var client_url = localStorage.getItem('client_url');
-  
-  if (!client_name) {
-    
-  } else {
-      $("#tenkhachhang").val(client_name);
-      $("#tenkhachhang").css({'background-color' : '#fdff5d'});
-  }
-  
-  if (!client_phone) {
-      
-  } else {
-    $("#sdt").val(client_phone);
-    $("#sdt").css({'background-color' : '#fdff5d'});
-  }
-  
-  if (!client_address) {
-      
-  } else {
-      $("#diachi").val(client_address);
-      $("#diachi").css({'background-color' : '#fdff5d'});
-  }
-  
-  $("#url").val(client_url);
+    load_exists_data();
   
 });
