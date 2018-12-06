@@ -82,3 +82,7 @@ section { padding: 5px;}
   text-overflow: inherit !important;
   white-space: normal !important;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    width: 85%;
+}

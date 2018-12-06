@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Quick Order",
 	"description": "Thêm nhanh đơn hàng",
-	"version": "2.2",
+	"version": "2.5",
 	"permissions": [
 		"storage", "clipboardRead", "tabs"
 	],

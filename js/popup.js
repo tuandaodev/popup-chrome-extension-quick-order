@@ -2,13 +2,8 @@ console.log("START PANEL");
 
 function matchCustom(params, data) {
     
-    console.log(params.term);
-    console.log(data);
-    
-    // If there are no search terms, return all of the data
-    if ($.trim(params.term) === '') {
-      return data;
-    }
+//    console.log(params.term);
+//    console.log(data);
     
     // If there are no search terms, return all of the data
     if ($.trim(params.term) === '') {
@@ -49,28 +44,6 @@ function matchCustom(params, data) {
 //    } else {
 //        $(this).parent().find('.select2-selection--single').css({'background-color' : ''});
 //    }
-//});
-
-//$('.address input').on('focus', function () {
-//    
-//    console.log("INPUT FOCUS");
-//    
-//    $("#Tinh").select2("open");
-//});
-
-//$( "input" ).focus(function() {
-//  $("#e1").select2("open");
-//});
-//
-//jQuery('#dropdown').select2({}).focus(function(){ 
-//    $(this).select2("open"); 
-//});
-
-//$(document).on('focus', '.select2.select2-container', function (e) {
-//  // only open on original attempt - close focus event should not fire open
-//  if (e.originalEvent && $(this).find(".select2-selection--single").length > 0) {
-//    $(this).siblings('select').select2('open');
-//  } 
 //});
 
 //$('#Tinh').on('change', function () {
@@ -152,7 +125,6 @@ $('#list_diachi').on('change', function () {
         
     } else {
         $('#list_diachi option').remove();
-//        $('#list_diachi option[class="op-xa"]').remove();
         load_tinh();
         $('#list_diachi').select2("open");
     }
@@ -180,20 +152,6 @@ $('#list_diachi').on('change', function () {
 
 
 function load_tinh() {
-//    console.log(sessionStorage.getItem('save_tinh'));
-//    if (sessionStorage.getItem('save_tinh')) {
-//        var save_tinh = sessionStorage.getItem('save_tinh');
-//        
-//        save_tinh = JSON.parse(save_tinh);
-//        $.each(save_tinh, function (i, value) {
-//            $('#Tinh').append($('<option>').text(value).attr('value', i));
-//        });
-//        $('#Tinh').select2({
-//            matcher: matchCustom,
-//            allowClear: true,
-//            placeholder: "Chọn tỉnh/thành phố"
-//        });
-//    } else {
         $.ajax({
             url: 'http://thoitrangs2.com/api/danh-sach-tinh',
             type: 'GET',
@@ -212,7 +170,6 @@ function load_tinh() {
                 
             }
         });
-//    }
 }
 
 function load_huyen() {
@@ -233,13 +190,6 @@ function load_huyen() {
                 placeholder: "Chọn tỉnh/thành phố"
             });
             $('#list_diachi').select2("open");
-//            $('#list_diachi').trigger('change');
-            
-//            $('#Huyen').select2({
-//                matcher: matchCustom,
-//                allowClear: true,
-//                placeholder: "Chọn quận/huyện"
-//            });
         }
     });
 }
@@ -251,7 +201,6 @@ function load_xa() {
         dataType: 'json',
         success: function (json) {
 //            console.log(json);
-//            $("#Xa").find('option').not(':first').remove();
             $.each(json, function (i, value) {
                 $('#list_diachi').append($('<option class="op-xa">').text(value).attr('value', i));
             });
@@ -263,26 +212,9 @@ function load_xa() {
                 placeholder: "Chọn tỉnh/thành phố"
             });
             $('#list_diachi').select2("open");
-//            $('#Xa').select2({
-//                matcher: matchCustom,
-//                allowClear: true,
-//                placeholder: "Chọn xã/phường"
-//            });
         }
     });
 }
-
-//$('#Huyen').select2({
-//    matcher: matchCustom,
-//    multiple: true,
-//    placeholder: "Chọn quận/huyện"
-//});
-//
-//$('#Xa').select2({
-//    matcher: matchCustom,
-//    multiple: true,
-//    placeholder: "Chọn xã/phường"
-//});
 
 $('#logout').on('click', function (event) {
     localStorage.removeItem('employee_name');
@@ -417,11 +349,6 @@ $("#don_hang .reset").on('click', function(e) {
     
     location.reload();
     
-//    $("#count_product").val(0);
-//    $("#chitietdonhang tr").remove();
-    
-//    load_thongtinnhanvien();
-    
     e.preventDefault(); // avoid to execute the actual submit of the form.
 });
 
@@ -504,8 +431,8 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             data: {
-              'MaNhanVien':employee_code,
-              'Tokenkey':employee_token
+              MaNhanVien:employee_code,
+              TokenKey:employee_token
             },
             success: function (json) {
                 console.log(json);
@@ -517,41 +444,6 @@ $(document).ready(function () {
             }
         });
     
-//    $.fn.select2.defaults.set('matcher', function(params, data) {
-//        // If there are no search terms, return all of the data
-//        if ($.trim(params.term) === '') {
-//          return data;
-//        }
-//
-//        // Do not display the item if there is no 'text' property
-//        if (typeof data.text === 'undefined') {
-//          return null;
-//        }
-//        
-//        
-//        var str = convertVietnamese(data.text);
-//        
-//        var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-//        var acronym = matches.join(''); // JSON
-//        
-////        console.log(params.term.toUpperCase());
-////        console.log(acronym.toUpperCase());
-////        console.log(params.term.toUpperCase().indexOf(acronym.toUpperCase()));
-//        
-//        if (params.term.toUpperCase().indexOf(acronym.toUpperCase()) !== -1 || acronym.toUpperCase().indexOf(params.term.toUpperCase()) !== -1) {
-//            return data;
-//        }
-//        
-//        var words = params.term.toUpperCase().split(" ");
-//        for (var i = 0; i < words.length; i++) {
-//          if (data.text.toUpperCase().indexOf(words[i]) < 0) {
-//            return null;
-//          }
-//        }
-//
-//        return data;
-//      });
-
 });
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
@@ -594,10 +486,3 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   $("#url").val(client_url);
   
 });
-
-//$(document).on('focus', '.select2', function (e) {
-//  if (e.originalEvent) {
-//    $(this).siblings('select').select2('open');    
-//  } 
-//});
-
