@@ -35,15 +35,117 @@ function matchCustom(params, data) {
     return data;
 };
 
-$('select').on('change', function () {
-    if ($(this).val() !== "") {
-        $(this).parent().find('.select2-selection--single').css({'background-color' : '#fdff5d'});
+//$('select').on('change', function () {
+//    if ($(this).val() !== "") {
+//        $(this).parent().find('.select2-selection--single').css({'background-color' : '#fdff5d'});
+//    } else {
+//        $(this).parent().find('.select2-selection--single').css({'background-color' : ''});
+//    }
+//});
+
+//$('.address input').on('focus', function () {
+//    
+//    console.log("INPUT FOCUS");
+//    
+//    $("#Tinh").select2("open");
+//});
+
+//$( "input" ).focus(function() {
+//  $("#e1").select2("open");
+//});
+//
+//jQuery('#dropdown').select2({}).focus(function(){ 
+//    $(this).select2("open"); 
+//});
+
+//$(document).on('focus', '.select2.select2-container', function (e) {
+//  // only open on original attempt - close focus event should not fire open
+//  if (e.originalEvent && $(this).find(".select2-selection--single").length > 0) {
+//    $(this).siblings('select').select2('open');
+//  } 
+//});
+
+$('#Tinh').on('change', function () {
+    
+    console.log($('#Tinh').val());
+    
+    if ($('#Tinh').val().length !== 0) {
+        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+        $('#Tinh option:not(:selected)').remove();
+        load_huyen();
     } else {
-        $(this).parent().find('.select2-selection--single').css({'background-color' : ''});
+        $('#Tinh option').remove();
+        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        $('#Huyen option').remove();
+        $('#Huyen').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        $('#Xa option').remove();
+        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        load_tinh();
     }
 });
 
-$('#Tinh').on('change', function () {
+$('#Huyen').on('change', function () {
+    if ($('#Huyen').val().length !== 0) {
+        $('#Huyen option:not(:selected)').remove();
+        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+        load_xa();
+    } else {
+        $('#Huyen option').remove();
+        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        $('#Xa option').remove();
+        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        load_huyen();
+    }
+});
+
+$('#Xa').on('change', function () {
+    if ($('#Xa').val().length !== 0) {
+        $('#Xa option:not(:selected)').remove();
+        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+    } else {
+        $('#Xa option').remove();
+        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        load_xa();
+    }
+});
+
+function load_tinh() {
+//    console.log(sessionStorage.getItem('save_tinh'));
+//    if (sessionStorage.getItem('save_tinh')) {
+//        var save_tinh = sessionStorage.getItem('save_tinh');
+//        
+//        save_tinh = JSON.parse(save_tinh);
+//        $.each(save_tinh, function (i, value) {
+//            $('#Tinh').append($('<option>').text(value).attr('value', i));
+//        });
+//        $('#Tinh').select2({
+//            matcher: matchCustom,
+//            allowClear: true,
+//            placeholder: "Chọn tỉnh/thành phố"
+//        });
+//    } else {
+        $.ajax({
+            url: 'http://thoitrangs2.com/api/danh-sach-tinh',
+            type: 'GET',
+            dataType: 'json',
+            success: function (json) {
+//                console.log(json.toString());
+//                sessionStorage.setItem('save_tinh', json.toString());
+
+                $.each(json, function (i, value) {
+                    $('#Tinh').append($('<option>').text(value).attr('value', i));
+                });
+                $('#Tinh').select2({
+                    matcher: matchCustom,
+                    allowClear: true,
+                    placeholder: "Chọn tỉnh/thành phố"
+                });
+            }
+        });
+//    }
+}
+
+function load_huyen() {
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-huyen/' + $("#Tinh").val(),
         type: 'GET',
@@ -57,13 +159,15 @@ $('#Tinh').on('change', function () {
             });
             
             $('#Huyen').select2({
-                matcher: matchCustom
+                matcher: matchCustom,
+                allowClear: true,
+                placeholder: "Chọn quận/huyện"
             });
         }
     });
-});
+}
 
-$('#Huyen').on('change', function () {
+function load_xa() {
     $.ajax({
         url: 'http://thoitrangs2.com/api/danh-sach-xa/' + $("#Huyen").val(),
         type: 'GET',
@@ -76,10 +180,31 @@ $('#Huyen').on('change', function () {
             });
             
             $('#Xa').select2({
-                matcher: matchCustom
+                matcher: matchCustom,
+                allowClear: true,
+                placeholder: "Chọn xã/phường"
             });
         }
     });
+}
+
+$('#Huyen').select2({
+    matcher: matchCustom,
+    multiple: true,
+    placeholder: "Chọn quận/huyện"
+});
+
+$('#Xa').select2({
+    matcher: matchCustom,
+    multiple: true,
+    placeholder: "Chọn xã/phường"
+});
+
+$('#logout').on('click', function (event) {
+    localStorage.removeItem('employee_name');
+    localStorage.removeItem('employee_code');
+    localStorage.removeItem('employee_token');
+    window.close();
 });
 
 $('#chitietdonhang').on('click', '.delete-button', function (event) {
@@ -90,7 +215,18 @@ $('#chitietdonhang').on('click', '.delete-button', function (event) {
     $("#count_product").val(count_product);
 });
 
-$('#add_product').on('click', function (event) {
+//$('#add_product').on('click', function (event) {
+$('#id_product').on('change', function (event) {
+    
+    if ($(this).val() !== "") {
+        $(this).parent().find('.select2-selection--single').css({'background-color' : '#fdff5d'});
+    } else {
+        $(this).parent().find('.select2-selection--single').css({'background-color' : ''});
+    }
+    
+    if ($('#id_product').val() === "") {
+        return;
+    }
     
     if (!$("#id_product").val()) {
 //        alert("Chưa chọn sản phẩm.");
@@ -118,15 +254,25 @@ $('#add_product').on('click', function (event) {
     
     var product_name = $("#id_product option:selected").text();
     var product_code = $("#id_product").val();
-    var product_quantity = $("#product_quantity").val();
+    var product_quantity_html = '<input class="form-control" type="number" min="1" required name="SoLuong[]" value="' + $("#product_quantity").val() + '">';
     
-    var html = '<tr><td>' + count_product + '</td><td>' + product_name + '</td><td>' + product_quantity + '</td><td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td><input type="hidden" name="MaSP[]" value="' + product_code + '"><input type="hidden" name="SoLuong[]" value="' + product_quantity + '"></tr>';
+    var html = '<tr><td>' + count_product + '</td><td>' + product_name + '</td><td>' + product_quantity_html + '</td><td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td><input type="hidden" name="MaSP[]" value="' + product_code + '"></tr>';
     $("#chitietdonhang").append(html);
     
 });
 
 
 $("#don_hang").submit(function(e) {
+
+    if (!$("#id_product").val()) {
+//        alert("Chưa chọn sản phẩm.");
+        bootbox.alert({
+            message: "Chưa chọn sản phẩm.",
+            size: 'small',
+            backdrop: true
+        });
+        return;
+    }
 
     var form = $(this);
     var url = form.attr('action');
@@ -193,6 +339,8 @@ $("#don_hang .reset").on('click', function(e) {
 
 function load_thongtinnhanvien() {
     // Load thong tin nhan vien
+    var employee_name = localStorage.getItem('employee_name');
+    $("#ten_nhan_vien").html('NV: ' + employee_name);
     var employee_code = localStorage.getItem('employee_code');
     var employee_token = localStorage.getItem('employee_token');
     $("#MaNhanVien").val(employee_code);
@@ -229,35 +377,22 @@ $(document).ready(function () {
     
     load_thongtinnhanvien();
     
-    $.ajax({
-        url: 'http://thoitrangs2.com/api/danh-sach-tinh',
-        type: 'GET',
-        dataType: 'json',
-        success: function (json) {
-            console.log(json);
-            $.each(json, function (i, value) {
-                $('#Tinh').append($('<option>').text(value).attr('value', i));
-            });
-            $('#Tinh').select2({
-                matcher: matchCustom
-            });
-        }
-    });
-
-    // Load list trang ban hang
-    $.ajax({
-        url: 'http://thoitrangs2.com/api/danh-sach-trang-ban-hang',
-        type: 'GET',
-        dataType: 'json',
-        success: function (json) {
-            console.log(json);
-            $.each(json, function (i, value) {
-                $('#TrangBanHang').append($('<option>').text(value).attr('value', i));
-            });
-            
-            $('#TrangBanHang').select2();
-        }
-    });
+    load_tinh();
+    
+//    // Load list trang ban hang
+//    $.ajax({
+//        url: 'http://thoitrangs2.com/api/danh-sach-trang-ban-hang',
+//        type: 'GET',
+//        dataType: 'json',
+//        success: function (json) {
+//            console.log(json);
+//            $.each(json, function (i, value) {
+//                $('#TrangBanHang').append($('<option>').text(value).attr('value', i));
+//            });
+//            
+//            $('#TrangBanHang').select2();
+//        }
+//    });
     
     // Load danh sach san pham
     $.ajax({
@@ -352,8 +487,9 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   
 });
 
-$(document).on('focus', '.select2', function (e) {
-  if (e.originalEvent) {
-    $(this).siblings('select').select2('open');    
-  } 
-});
+//$(document).on('focus', '.select2', function (e) {
+//  if (e.originalEvent) {
+//    $(this).siblings('select').select2('open');    
+//  } 
+//});
+

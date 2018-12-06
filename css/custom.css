@@ -9,8 +9,15 @@ body, section {
 
 h3.page-header {
     margin: 15px 25px !important;
-    font-size: 18px;
-    text-align: center;
+    font-size: 14px;
+}
+
+#logout {
+    cursor: pointer;
+}
+
+#ten_nhan_vien {
+    font-weight: bold;
 }
 
 /*.col-md-12 {
@@ -82,4 +89,12 @@ section { padding: 5px;}
 
 .modal-dialog {
     margin-top: 50%;
+}
+
+#chitietdonhang td {
+    line-height: 34px !important;
+}
+
+.bootbox-body {
+    text-align: center;
 }

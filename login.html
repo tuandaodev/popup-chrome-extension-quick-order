@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Tạo đơn hàng nhanh">
+        <meta name="author" content="Tuan Dao">
+
+        <title>QuickOrder</title>
+
+        <!-- Cascading Style Sheets -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/login.css" rel="stylesheet" media="screen">
+        <link href="css/select2.css" rel="stylesheet" media="screen">
+    </head>
+
+    <body id="LoginForm">
+        <div class="container">
+            <div class="login-form">
+                <div class="main-div">
+                    <div class="panel">
+                        <h2>Đăng nhập</h2>
+                    </div>
+                    <form id="Login" method="POST" action="http://thoitrangs2.com/api/dang-nhap">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+
+                    </form>
+                </div>
+            </div></div></div>
+</body>
+<!-- Scripts -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootbox.min.js"></script>
+<script src="js/login.js"></script>
+
+</html>
