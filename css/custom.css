@@ -86,3 +86,7 @@ section { padding: 5px;}
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     width: 85%;
 }
+
+.td-quantity {
+    width: 35%;
+}

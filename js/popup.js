@@ -272,7 +272,7 @@ $('#id_product').on('change', function (event) {
     var product_code = $("#id_product").val();
     var product_quantity_html = '<input class="form-control" type="number" min="1" required name="SoLuong[]" value="' + $("#product_quantity").val() + '">';
     
-    var html = '<tr><td>' + count_product + '</td><td>' + product_name + '</td><td>' + product_quantity_html + '</td><td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td><input type="hidden" name="MaSP[]" value="' + product_code + '"></tr>';
+    var html = '<tr><td>' + count_product + '</td><td>' + product_name + '</td><td class="td-quantity">' + product_quantity_html + '</td><td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td><input type="hidden" name="MaSP[]" value="' + product_code + '"></tr>';
     $("#chitietdonhang").append(html);
     
 });
@@ -442,7 +442,20 @@ $(document).ready(function () {
                     $("#tong_don_hang").html("--");
                 }
             }
-        });
+    });
+        
+    $(document).on('focus', '.select2-selection--single', function(e) {
+        select2_open = $(this).parent().parent().siblings('select');
+        select2_open.select2('open');
+    });
+    
+    $('input[type="text"]').on('keyup', function(e) {
+        if ($(this).val()) {
+            $(this).css({'background-color' : '#fdff5d'});
+        } else {
+            $(this).css({'background-color' : ''});
+        }
+    });
     
 });
 
