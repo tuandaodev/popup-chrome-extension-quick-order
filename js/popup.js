@@ -1,17 +1,25 @@
 console.log("START PANEL");
 
 function matchCustom(params, data) {
+    
+    console.log(params.term);
+    console.log(data);
+    
     // If there are no search terms, return all of the data
     if ($.trim(params.term) === '') {
       return data;
     }
-
+    
+    // If there are no search terms, return all of the data
+    if ($.trim(params.term) === '') {
+      return data;
+    }
+    
     // Do not display the item if there is no 'text' property
-    if (typeof data.text === 'undefined') {
+    if (typeof data.text === 'undefined' || !data.text) {
       return null;
     }
-
-
+    
     var str = convertVietnamese(data.text);
 
     var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
@@ -65,49 +73,111 @@ function matchCustom(params, data) {
 //  } 
 //});
 
-$('#Tinh').on('change', function () {
+//$('#Tinh').on('change', function () {
+//    
+//    console.log($('#Tinh').val());
+//    
+//    if ($('#Tinh').val().length !== 0) {
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+//        $('#Tinh option:not(:selected)').remove();
+//        load_huyen();
+//    } else {
+//        $('#Tinh option').remove();
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        $('#Huyen option').remove();
+//        $('#Huyen').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        $('#Xa option').remove();
+//        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        load_tinh();
+//    }
+//});
+
+//$('#Huyen').on('change', function () {
+//    if ($('#Huyen').val().length !== 0) {
+//        $('#Huyen option:not(:selected)').remove();
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+//        load_xa();
+//    } else {
+//        $('#Huyen option').remove();
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        $('#Xa option').remove();
+//        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        load_huyen();
+//    }
+//});
+//
+//$('#Xa').on('change', function () {
+//    if ($('#Xa').val().length !== 0) {
+//        $('#Xa option:not(:selected)').remove();
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+//    } else {
+//        $('#Xa option').remove();
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        load_xa();
+//    }
+//});
+
+var selected_tinh = null;
+var selected_huyen = null;
+var selected_xa = null;
+
+$('#list_diachi').on('change', function () {
     
-    console.log($('#Tinh').val());
+    console.log($('#list_diachi').val());
     
-    if ($('#Tinh').val().length !== 0) {
-        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
-        $('#Tinh option:not(:selected)').remove();
-        load_huyen();
+    selected_tinh = $('#list_diachi option[class="op-tinh"]:selected').val();
+    
+    if (selected_tinh) {
+        console.log(selected_tinh);
+        $('#list_diachi option[class="op-tinh"]:not(:selected)').remove();
+        
+        selected_huyen = $('#list_diachi option[class="op-huyen"]:selected').val();
+        if (selected_huyen) {
+            console.log(selected_huyen);
+            $('#list_diachi option[class="op-huyen"]:not(:selected)').remove();
+            
+            selected_xa = $('#list_diachi option[class="op-xa"]:selected').val();
+            if (selected_xa) {
+                console.log(selected_xa);
+                $('#list_diachi option[class="op-xa"]:not(:selected)').remove();
+            } else {
+                $('#list_diachi option[class="op-xa"]').remove();
+                load_xa();
+            }
+        } else {
+            $('#list_diachi option[class="op-huyen"]').remove();
+            load_huyen();
+            $('#list_diachi option[class="op-xa"]').remove();
+        }
+        
     } else {
-        $('#Tinh option').remove();
-        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
-        $('#Huyen option').remove();
-        $('#Huyen').parent().find('.select2-selection--multiple').css({'background-color' : ''});
-        $('#Xa option').remove();
-        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+        $('#list_diachi option').remove();
+//        $('#list_diachi option[class="op-xa"]').remove();
         load_tinh();
+        $('#list_diachi').select2("open");
     }
-});
-
-$('#Huyen').on('change', function () {
-    if ($('#Huyen').val().length !== 0) {
-        $('#Huyen option:not(:selected)').remove();
-        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
-        load_xa();
-    } else {
-        $('#Huyen option').remove();
-        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
-        $('#Xa option').remove();
-        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
-        load_huyen();
-    }
-});
-
-$('#Xa').on('change', function () {
-    if ($('#Xa').val().length !== 0) {
-        $('#Xa option:not(:selected)').remove();
+    
+    if ($('#list_diachi').val().length !== 0) {
         $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
     } else {
-        $('#Xa option').remove();
         $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
-        load_xa();
     }
+    
+//    if ($('#Tinh').val().length !== 0) {
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : '#fdff5d'});
+//        $('#Tinh option:not(:selected)').remove();
+//        load_huyen();
+//    } else {
+//        $('#Tinh option').remove();
+//        $(this).parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        $('#Huyen option').remove();
+//        $('#Huyen').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        $('#Xa option').remove();
+//        $('#Xa').parent().find('.select2-selection--multiple').css({'background-color' : ''});
+//        load_tinh();
+//    }
 });
+
 
 function load_tinh() {
 //    console.log(sessionStorage.getItem('save_tinh'));
@@ -129,17 +199,17 @@ function load_tinh() {
             type: 'GET',
             dataType: 'json',
             success: function (json) {
-//                console.log(json.toString());
-//                sessionStorage.setItem('save_tinh', json.toString());
-
                 $.each(json, function (i, value) {
-                    $('#Tinh').append($('<option>').text(value).attr('value', i));
+                    $('#list_diachi').append($('<option class="op-tinh">').text(value).attr('value', i));
                 });
-                $('#Tinh').select2({
+                $('#list_diachi').select2({
                     matcher: matchCustom,
+                    multiple: true,
                     allowClear: true,
                     placeholder: "Chọn tỉnh/thành phố"
                 });
+                
+                
             }
         });
 //    }
@@ -147,58 +217,72 @@ function load_tinh() {
 
 function load_huyen() {
     $.ajax({
-        url: 'http://thoitrangs2.com/api/danh-sach-huyen/' + $("#Tinh").val(),
+        url: 'http://thoitrangs2.com/api/danh-sach-huyen/' + selected_tinh,
         type: 'GET',
         dataType: 'json',
         success: function (json) {
-            console.log(json);
-            
-            $("#Huyen").find('option').not(':first').remove();
+//            console.log(json);
             $.each(json, function (i, value) {
-                $('#Huyen').append($('<option>').text(value).attr('value', i));
+                $('#list_diachi').append($('<option class="op-huyen">').text(value).attr('value', i));
             });
             
-            $('#Huyen').select2({
+            $('#list_diachi').select2({
                 matcher: matchCustom,
+                multiple: true,
                 allowClear: true,
-                placeholder: "Chọn quận/huyện"
+                placeholder: "Chọn tỉnh/thành phố"
             });
+            $('#list_diachi').select2("open");
+//            $('#list_diachi').trigger('change');
+            
+//            $('#Huyen').select2({
+//                matcher: matchCustom,
+//                allowClear: true,
+//                placeholder: "Chọn quận/huyện"
+//            });
         }
     });
 }
 
 function load_xa() {
     $.ajax({
-        url: 'http://thoitrangs2.com/api/danh-sach-xa/' + $("#Huyen").val(),
+        url: 'http://thoitrangs2.com/api/danh-sach-xa/' + selected_huyen,
         type: 'GET',
         dataType: 'json',
         success: function (json) {
-            console.log(json);
-            $("#Xa").find('option').not(':first').remove();
+//            console.log(json);
+//            $("#Xa").find('option').not(':first').remove();
             $.each(json, function (i, value) {
-                $('#Xa').append($('<option>').text(value).attr('value', i));
+                $('#list_diachi').append($('<option class="op-xa">').text(value).attr('value', i));
             });
             
-            $('#Xa').select2({
+            $('#list_diachi').select2({
                 matcher: matchCustom,
+                multiple: true,
                 allowClear: true,
-                placeholder: "Chọn xã/phường"
+                placeholder: "Chọn tỉnh/thành phố"
             });
+            $('#list_diachi').select2("open");
+//            $('#Xa').select2({
+//                matcher: matchCustom,
+//                allowClear: true,
+//                placeholder: "Chọn xã/phường"
+//            });
         }
     });
 }
 
-$('#Huyen').select2({
-    matcher: matchCustom,
-    multiple: true,
-    placeholder: "Chọn quận/huyện"
-});
-
-$('#Xa').select2({
-    matcher: matchCustom,
-    multiple: true,
-    placeholder: "Chọn xã/phường"
-});
+//$('#Huyen').select2({
+//    matcher: matchCustom,
+//    multiple: true,
+//    placeholder: "Chọn quận/huyện"
+//});
+//
+//$('#Xa').select2({
+//    matcher: matchCustom,
+//    multiple: true,
+//    placeholder: "Chọn xã/phường"
+//});
 
 $('#logout').on('click', function (event) {
     localStorage.removeItem('employee_name');
@@ -264,23 +348,27 @@ $('#id_product').on('change', function (event) {
 
 $("#don_hang").submit(function(e) {
 
-    if (!$("#id_product").val()) {
-//        alert("Chưa chọn sản phẩm.");
+    if ($("#count_product").val() == "0") {
         bootbox.alert({
             message: "Chưa chọn sản phẩm.",
             size: 'small',
             backdrop: true
         });
+        e.preventDefault();
         return;
     }
 
     var form = $(this);
     var url = form.attr('action');
     
+    selected_tinh = $('#list_diachi option[class="op-tinh"]:selected').val();
+    selected_huyen = $('#list_diachi option[class="op-huyen"]:selected').val();
+    selected_xa = $('#list_diachi option[class="op-xa"]:selected').val();
+    
     $.ajax({
            type: "POST",
            url: url,
-           data: form.serialize(), // serializes the form's elements.
+           data: form.serialize() + '&Tinh='+selected_tinh+'&Huyen='+selected_huyen+'&Xa='+selected_xa, // serializes the form's elements.
            success: function(data)
            {
                data = JSON.parse(data);
@@ -400,7 +488,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (json) {
-            console.log(json);
+//            console.log(json);
             $.each(json, function (i, value) {
                 $('#id_product').append($('<option>').text(value).attr('value', i));
             });
@@ -408,6 +496,26 @@ $(document).ready(function () {
             $('#id_product').select2();
         }
     });
+    
+    var employee_code = localStorage.getItem('employee_code');
+    var employee_token = localStorage.getItem('employee_token');
+    $.ajax({
+            url: 'http://thoitrangs2.com/api/tong-don-hang',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              'MaNhanVien':employee_code,
+              'Tokenkey':employee_token
+            },
+            success: function (json) {
+                console.log(json);
+                if (json.result == true) {
+                   $("#tong_don_hang").html(json.detail);
+                } else {
+                    $("#tong_don_hang").html("--");
+                }
+            }
+        });
     
 //    $.fn.select2.defaults.set('matcher', function(params, data) {
 //        // If there are no search terms, return all of the data

@@ -61,3 +61,7 @@ body {
 .modal-dialog {
     margin-top: 10%;
 }
+
+.bootbox-body {
+    text-align: center;
+}

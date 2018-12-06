@@ -18,15 +18,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h3 class="page-header">
-                        <span id="ten_nhan_vien"></span>
-                        <a class="pull-right" id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <div class="row">
+                            <span id="ten_nhan_vien"></span>
+                            <a class="pull-right" id="logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+                        </div>
+                        <div class="row" style="margin-top: 5px;font-size: 12px;">
+                            <span>Tổng đơn hôm nay: <span id="tong_don_hang"></span></span>
+                        </div>
                     </h3>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <form id="don_hang" method="POST" action="http://thoitrangs2.com/api/dang-don-hang">
                 <div class="col-lg-12">
-
                     <div class="row">
                         <div class="col-lg-7">
                             <div class="col-lg-6">
@@ -34,40 +38,41 @@
                                     <label>Tên khách hàng</label>
                                     <input class="form-control" id="tenkhachhang" name="tenkhachhang" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label>SĐT</label>
                                     <input class="form-control" id="sdt" name="sdt" required>
                                 </div>
-                                
                                 <div class="form-group address">
-                                    <label>Tỉnh/Thành phố</label>
-                                    <select class="form-control" id="Tinh" name="Tinh" multiple=​"multiple" required>
-                                        <!--<option value="">-Chọn tỉnh/thành-</option>-->
+                                    <label>Thành phố/quận/phường</label>
+                                    <select class="form-control" id="list_diachi" name="list_diachi[]" multiple=​"multiple" required>
                                         <option></option>
                                     </select>
                                 </div>
-
+<!--                                <div class="form-group address">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select class="form-control" id="Tinh" name="Tinh" multiple=​"multiple" required>
+                                       <option value="">-Chọn tỉnh/thành-</option>
+                                        <option></option>
+                                    </select>
+                                </div>
                                 <div class="form-group address">
                                     <label>Quận/Huyện</label>
                                     <select class="form-control" id="Huyen" name="Huyen" multiple=​"multiple" required>
-                                        <!--<option value="">-Chọn quận/huyện-</option>-->
+                                        <option value="">-Chọn quận/huyện-</option>
                                         <option></option>
                                     </select>
-                                </div>
-                                
-                                
+                                </div>-->
                             </div>
 
                             <div class="col-lg-6">
                                 
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label>Xã/Phường</label>
                                     <select class="form-control" id="Xa" name="Xa" multiple=​"multiple" required>
-                                        <!--<option value="">-Chọn xã/phường-</option>-->
+                                        <option value="">-Chọn xã/phường-</option>
                                         <option></option>
                                     </select>
-                                </div>
+                                </div>-->
                                 
 
                                 <div class="form-group">

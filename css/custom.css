@@ -8,7 +8,7 @@ body, section {
 }
 
 h3.page-header {
-    margin: 15px 25px !important;
+    margin: 10px 30px !important;
     font-size: 14px;
 }
 
@@ -18,33 +18,8 @@ h3.page-header {
 
 #ten_nhan_vien {
     font-weight: bold;
+    color: #337ab7;
 }
-
-/*.col-md-12 {
-    width: 100%;
-    float: left !important;
-}
-.col-md-8{width:66.66666667%; float: left !important;}
-
-.col-md-7{
-    width:58.33333333%;
-    float: left !important;
-}
-.col-md-6{
-    width:50%;
-    float: left !important;
-}
-.col-md-5{
-    width:41.66666667%;
-    float: left !important;
-}
-.col-md-4 {
-    width:33.33333333% !important;
-    float: left !important;
-}
-
-.col-md-2{width:16.66666667%;float: left !important;}
-.col-md-1{width:8.33333333%;float: left !important;}*/
 
 .button-container {
     text-align: right;
@@ -97,4 +72,13 @@ section { padding: 5px;}
 
 .bootbox-body {
     text-align: center;
+}
+
+.select2-selection--multiple {
+  height: 100% !important;
+}
+.select2-selection__rendered{
+  word-wrap: break-word !important;
+  text-overflow: inherit !important;
+  white-space: normal !important;
 }
