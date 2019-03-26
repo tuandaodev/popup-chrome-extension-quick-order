@@ -270,11 +270,14 @@ $('#id_product').on('change', function (event) {
     
     var product_name = $("#id_product option:selected").text();
     var product_code = $("#id_product").val();
+    var product_image_code_html = '<input class="form-control" type="text" name="MaHinhAnh[]" value="' + $("#product_image_code").val() + '">';
     var product_quantity_html = '<input class="form-control" type="number" min="1" required name="SoLuong[]" value="' + $("#product_quantity").val() + '">';
     
-    var html = '<tr><td>' + count_product + '</td><td>' + product_name + '</td><td class="td-quantity">' + product_quantity_html + '</td><td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td><input type="hidden" name="MaSP[]" value="' + product_code + '"></tr>';
+    var html = '<tr><td>' + count_product + '</td><td>' + product_name + '</td><td class="td-image-code">' + product_image_code_html + '</td><td class="td-quantity hidden">' + product_quantity_html + '</td><td><button type="button" class="delete-button btn btn-danger btn-xs">X</button></td><input type="hidden" name="MaSP[]" value="' + product_code + '"></tr>';
     $("#chitietdonhang").append(html);
     
+    $("#product_image_code").val("");
+    $('#product_image_code').keyup();
 });
 
 

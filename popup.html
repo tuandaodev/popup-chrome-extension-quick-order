@@ -96,13 +96,17 @@
                         <!-- /.col-lg-6 (nested) -->
                         <div class="col-lg-5">
                             <fieldset>
-                                <div class="col-xs-8">
+                                <div class="col-xs-6">
                                     <label>Sản phẩm</label>
                                     <select class="form-control" id="id_product" name="id_product">
                                         <option value="">Chọn SP</option>
                                     </select>
                                 </div>
-                                <div class="col-xs-4">
+                                <div class="col-xs-6">
+                                    <label>Mã Hình Ảnh</label>
+                                    <input class="form-control" type="text" id="product_image_code" name="product_image_code">
+                                </div>
+                                <div class="col-xs-4 hidden">
                                     <label>SL</label>
                                     <input class="form-control" type="number" id="product_quantity" name="product_quantity" min="1" value="1">
                                 </div>
@@ -118,8 +122,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Sản phẩm</th>
-                                                    <th>SL</th>
+                                                    <th class="text-center">Sản phẩm</th>
+                                                    <th class="text-center">Mã Ảnh</th>
+                                                    <th class="hidden">SL</th>
                                                     <th>X</th>
                                                 </tr>
                                             </thead>

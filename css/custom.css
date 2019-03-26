@@ -87,7 +87,7 @@ section { padding: 5px;}
     width: 85%;
 }
 
-.td-quantity {
+.td-quantity, td-image-code {
     width: 35%;
 }
 
